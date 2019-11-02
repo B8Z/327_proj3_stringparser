@@ -16,6 +16,7 @@ using namespace KP_StringParserClass;
 
 //dont forget to initialize member variables
 StringParserClass::StringParserClass(void) {
+	//set tags to null and make boolean areTagsSet false
 	pStartTag = NULL;
 	pEndTag = NULL;
 	areTagsSet = false;
