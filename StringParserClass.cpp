@@ -34,14 +34,28 @@ StringParserClass::~StringParserClass(void) {
 //SUCCESS
 //ERROR_TAGS_NULL if either pStart or pEnd is null
 int StringParserClass::setTags(const char *pStart, const char *pEnd) {
+	//if pStart or pEnd is null return tags_null constant
 	if (pStart == NULL || pEnd == NULL) {
 		return ERROR_TAGS_NULL;
-	} else {
+	}
+	//else make deepcopy of pStartTag and pEndTag
+	else {
+		//tags are set
 		areTagsSet = true;
 
-		pStartTag = (char*) pStart;
-		pEndTag = (char*) pEnd;
+		//get length of pStart and pEnd
+		int length_of_pStart = strlen(pStart);
+		int length_of_pEnd = strlen(pEnd);
 
+		//create new charArray with proper length
+		pStartTag = new char[1 + length_of_pStart];
+		pEndTag = new char[1 + length_of_pEnd];
+
+		//create deepcopy of pStartTag and pEndTag
+		strncpy(pStartTag, pStart, length_of_pStart);
+		strncpy(pEndTag, pEnd, length_of_pEnd);
+
+		//return success constant
 		return SUCCESS;
 	}
 }
@@ -55,7 +69,6 @@ int StringParserClass::setTags(const char *pStart, const char *pEnd) {
 //ERROR_DATA_NULL pDataToSearchThru is null
 int StringParserClass::getDataBetweenTags(char *pDataToSearchThru,
 		std::vector<std::string> &myVector) {
-
 
 	if (!areTagsSet) {
 		return ERROR_TAGS_NULL;
@@ -75,13 +88,13 @@ int StringParserClass::getDataBetweenTags(char *pDataToSearchThru,
 }
 
 void StringParserClass::cleanup() {
+	//delete pStartTag
 	if (pStartTag) {
 		delete[] pStartTag;
-		pStartTag = NULL;
 	}
+	//delete pEndTag
 	if (pEndTag) {
 		delete[] pEndTag;
-		pEndTag = NULL;
 	}
 }
 
@@ -92,10 +105,11 @@ void StringParserClass::cleanup() {
 //ERROR_TAGS_NULL if either pStart or pEnd is null
 int StringParserClass::findTag(char *pTagToLookFor, char *&pStart,
 		char *&pEnd) {
+	//if tags aren't set return tags_null constant
 	if (!areTagsSet) {
 		return ERROR_TAGS_NULL;
 	}
-
+	//else return success constant
 	return SUCCESS;
 }
 
